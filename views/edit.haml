@@ -1,0 +1,9 @@
+- if @note
+	%form{ action: "/#{ @note.id }", method: "post", id: "add"}
+		%input{type: "hidden", name: "_method", value: "put"}
+		%textarea{name: "content"}= h @note.content 
+
+		%input(type="submit")
+		%a.button{href: "/#{ @note.id }/delete"} Delete
+- else 
+	%p Note not found.

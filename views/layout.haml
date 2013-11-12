@@ -1,0 +1,26 @@
+!!!
+%html
+  %head
+    %title #{@title} | Laramie Ski Source
+    %link{ href: "stylesheets/base.css", rel: "stylesheet" }
+    %link{ href: "stylesheets/skeleton.css", rel: "stylesheet" }
+    %link{ href: "stylesheets/layout.css", rel: "stylesheet" }
+
+
+%body
+  %header
+    .container.sixteen.columns
+      %h1
+        %a{ href: "/" }Skiing
+      %h5 'cause its great
+
+  .container
+    = yield
+    %footer
+      .one.columns.space &nbsp
+      %hr
+      .eight.columns.alpha.copyright &copy; 2013
+      .eight.columns.omega.credit{style: "text-align: right;"}
+        Based on 
+        %a{href: "http://www.getskeleton.com/"} Skeleton.
+

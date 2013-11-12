@@ -1,0 +1,24 @@
+- @areas.each do |area| 
+	.sixteen.columns.post
+	%h2= area.name
+	%p= area.location if area.location
+	%p= area.description if area.description
+
+	-# Todo: when it's being saved, the note is added to the correct Area. 
+	.fourteen.columns#add
+	%form{action: "/", method: "post"}
+		.twelve.columns
+			%textarea{name: "content", placeholder: "How's the Skiing?"}
+		.two.columns
+			%input{type: "submit", value: "Submit"}
+
+	- area.notes.each do |note|
+		.fourteen.columns.post
+		%p
+			=h note.content 
+			%span
+				%a{href: "/#{ note.id }"} [edit]		
+		%em
+			Created: 
+			= note.created_at 
+
