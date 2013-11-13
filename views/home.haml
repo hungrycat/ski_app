@@ -27,13 +27,16 @@
 			%p.date
 				Posted 
 				- days_ago = (today - note.created_date).to_i
-				- if days_ago > 0
+				- if days_ago >= 1
 					= days_ago
 					days ago 
-				- else 
+				- elsif (now - note.created_time.hour).to_i >= 1 
 					- hours_ago = (now - note.created_time.hour).to_i
 					= hours_ago
 					hours ago
+				- else
+					= (Time.now.min - note.created_time.min).to_i
+					minutes ago
 				
 	%hr
 
