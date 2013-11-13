@@ -22,13 +22,12 @@ class Note
 	include DataMapper::Resource
 	property :id, Serial
 	property :content, Text, :required => true
-	property :created_at, DateTime
-	property :updated_at, DateTime
-
+	property :created_time, DateTime
+	property :created_date, Date
 	belongs_to :area
 end
  
-DataMapper.finalize.auto_migrate!
+DataMapper.finalize.auto_upgrade!
 
 helpers do
 	include Rack::Utils
@@ -37,26 +36,22 @@ helpers do
 end
 
 
-green_rock = Area.create(name: "Green Rock")
-cnr = Area.create(name: "Corner Mountain and Little Laramie")
-cp = Area.create(name: "Chimney Park")
+# green_rock = Area.create(name: "Green Rock")
+# cnr = Area.create(name: "Corner Mountain and Little Laramie")
+# cp = Area.create(name: "Chimney Park")
 
 
 get '/' do 
-	@areas = Area.all #todo: add order :order => :id.desc
-
+	@areas = Area.all(:order => :name.desc) #this should sort by name alphabetically?
 	@title = "Ski Areas"
 	haml :home
 end
 
+#need data validation
 post '/' do
-	n = Note.new
-	n.content = params[:content]
-	n.complete = false
-	n.created_at = Time.now
-	n.updated_at = Time.now
-	n.save
-	redirect '/'
+	area = Area.get(params[:area])
+	note = area.notes.create(content: params[:content], created_time: Time.now, created_date: Date.today)
+	redirect '/' #it would be nice to be able to direct to ##{params[:name]}
 end
 
 get '/:id' do

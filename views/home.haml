@@ -1,24 +1,39 @@
+
+- today = Date.today
+- now = Time.now.hour
 - @areas.each do |area| 
-	.sixteen.columns.post
-	%h2= area.name
+	.sixteen.columns{ id: area.id }
+	%h3= area.name
 	%p= area.location if area.location
 	%p= area.description if area.description
 
-	-# Todo: when it's being saved, the note is added to the correct Area. 
-	.fourteen.columns#add
-	%form{action: "/", method: "post"}
-		.twelve.columns
-			%textarea{name: "content", placeholder: "How's the Skiing?"}
-		.two.columns
-			%input{type: "submit", value: "Submit"}
 
-	- area.notes.each do |note|
+	-# Todo: when it's being saved, the note is added to the correct Area. 
+	.sixteen.columns
+		%form{action: "/", method: "post"}
+			.one.columns.alpha
+				%p
+			.twelve.columns
+				%input{type: "hidden", name: "area", value: "#{area.id}"}
+				%textarea{name: "content", placeholder: "How's the Skiing?", class: "post-box"}
+			.two.columns
+				%input{type: "submit", value: "Submit", class: "post-button"}
+
+	- area.notes.all(:limit => 4, :order => [:created_time.desc]).each do |note| 
 		.fourteen.columns.post
-		%p
-			=h note.content 
-			%span
+			%p
+				=h note.content 
 				%a{href: "/#{ note.id }"} [edit]		
-		%em
-			Created: 
-			= note.created_at 
+			%p.date
+				Posted 
+				- days_ago = (today - note.created_date).to_i
+				- if days_ago > 0
+					= days_ago
+					days ago 
+				- else 
+					- hours_ago = (now - note.created_time.hour).to_i
+					= hours_ago
+					hours ago
+				
+	%hr
 

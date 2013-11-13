@@ -286,28 +286,28 @@
 	    background: #fafafa;  
 	}  
 	  
-	.post.complete {  
-	    background: #fedae3;  
-	}  
-
-	#add {  
-	    margin: 0 0 20px;  
-	}  
-	  
-	#add textarea {  
+	.post-box {  
 	    height: 30px;  
 	    width: 90%;  
 	    padding: 10px;  
 	    border: 1px solid #ddd;  
 	}  
 	  
-	#add input {  
-	    height: 50px;  
-	    width: 100px;  
-	    margin: 0 0 0;  
-	    border: 1px solid #ddd;  
-	    background: white;  
+	.post-button {  
+
+	    margin: 30px 0 0;  
+	    /*border: 1px solid #ddd;  
+	    background: white;
+
+	    	    height: 50px;  
+	    width: 100px;    */
 	}  
+
+	.header {
+		text-align: center;
+	}
+
+	.date { font-style: italic; }
 
 
 
