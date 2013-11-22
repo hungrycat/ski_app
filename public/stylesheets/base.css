@@ -273,13 +273,17 @@
 	
 
 	.post {  
-    border: 1px solid #eee;  
-    border-top: none;  
-    padding: 15px 10px;  
-	}  
-	  
-	.post:first-of-type {  
 	    border: 1px solid #eee;  
+	    padding: 10px 10px;  
+	    margin: 5px 0px; 
+	}  
+
+	.post:first-of-type {  
+	    margin-top: 30px;
+	}  
+
+	.post:last-of-type {  
+	    margin-bottom: 30px;
 	}  
 	  
 	.post:nth-child(even) {  
@@ -307,7 +311,39 @@
 		text-align: center;
 	}
 
-	.date { font-style: italic; }
+	.date { 
+		font-style: italic; 
+		margin-bottom: 0px;
+	}
+
+	.sepa {
+		height: 30px;  
+	    width: 90%;  
+	    padding: 10px;  
+	    border: none;  
+	    background: white;  
+	}
+
+	.area_name {
+		background: #fafafa;
+		padding: 10px;  
+		text-align: center;
+	}
+
+	.area_desc {
+		
+		padding: 20px;  
+	}
+
+	.area_loc {
+		
+		padding: 20px;  
+	}
+
+
+
+
+
 
 
 

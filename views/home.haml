@@ -1,14 +1,14 @@
-
-- today = Date.today
-- now = Time.now.hour
 - @areas.each do |area| 
-	.sixteen.columns{ id: area.id }
-	%h3= area.name
-	%p= area.location if area.location
-	%p= area.description if area.description
+	.sixteen.columns
+		.fourteen.columns.area_name
+			%h3= area.name
+			%a{href: "/area/#{ area.id }"} [edit]
+		.six.columns.area_desc
+			%p= area.description 
+		.eight.columns.area_loc
+			= area.location 
 
 
-	-# Todo: when it's being saved, the note is added to the correct Area. 
 	.sixteen.columns
 		%form{action: "/", method: "post"}
 			.one.columns.alpha
@@ -26,17 +26,16 @@
 				%a{href: "/#{ note.id }"} [edit]		
 			%p.date
 				Posted 
-				- days_ago = (today - note.created_date).to_i
+				- days_ago = (@today - note.created_date).to_i
 				- if days_ago >= 1
 					= days_ago
 					days ago 
-				- elsif (now - note.created_time.hour).to_i >= 1 
-					- hours_ago = (now - note.created_time.hour).to_i
+				- elsif (@now - note.created_time.hour).to_i >= 1 
+					- hours_ago = (@now - note.created_time.hour).to_i
 					= hours_ago
 					hours ago
 				- else
 					= (Time.now.min - note.created_time.min).to_i
 					minutes ago
-				
-	%hr
-
+	.sixteen.columns
+		%p.sepa 

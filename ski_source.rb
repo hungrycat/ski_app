@@ -17,7 +17,7 @@ class Area
 	has n, :notes
 end
 
-# each Note belongs to an Area and contains the note text, and the date created
+# each Note belongs to an Area and contains the note text, and the date and time created
 class Note
 	include DataMapper::Resource
 	property :id, Serial
@@ -36,14 +36,11 @@ helpers do
 end
 
 
-# green_rock = Area.create(name: "Green Rock")
-# cnr = Area.create(name: "Corner Mountain and Little Laramie")
-# cp = Area.create(name: "Chimney Park")
-
-
 get '/' do 
 	@areas = Area.all(:order => :name.desc) #this should sort by name alphabetically?
 	@title = "Ski Areas"
+	@today = Date.today
+	@now = Time.now.hour
 	haml :home
 end
 
@@ -57,21 +54,22 @@ end
 get '/:id' do
 	@note = Note.get params[:id]
 	@title = "Edit note ##{params[:id]}"
-	haml :edit
+	haml :edit_note
 end
 
 put '/:id' do
 	n = Note.get params[:id]
-	n.content = params[:content]
-	n.updated_at = Time.now
-	n.save
-	redirect '/'
+	if n.update( content: params[:content], created_time:  Time.now, created_date: Date.today)
+		redirect '/'
+	else 
+		haml :edit_note
+	end
 end
 
 get '/:id/delete' do
 	@note = Note.get params[:id]
 	@title = "confirm deletion of note ##{params[:id]}"
-	haml :delete
+	haml :delete_note
 end
 
 delete '/:id' do
@@ -80,5 +78,38 @@ delete '/:id' do
 	redirect '/'
 end
 
+get '/area/new' do
+	@area = Area.new
+	@title = "New Area"
+	haml :edit_area
+end
 
+get '/area/:id' do
+	@area = Area.get params[:id]
+	@title = "Edit Area \'#{@area.name}\'"
+	haml :edit_area
+end
+
+put '/area/:id' do
+	a = Area.get params[:id]
+	if a.update(name: params[:name], location: params[:location], description: params[:description])
+		redirect '/'
+	else
+		haml :edit_area
+	end
+end
+
+put '/area/' do
+	if Area.create(name: params[:name], location: params[:location], description: params[:description])
+		redirect '/'
+	else
+		haml :edit_area
+	end
+end
+
+get '/area/:id/delete' do
+	@area = Area.get params[:id]
+	@title = "confirm deletion of area ##{params[:id]}"
+	haml :delete
+end
 
