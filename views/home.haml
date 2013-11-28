@@ -2,7 +2,6 @@
 	.sixteen.columns
 		.fourteen.columns.area_name
 			%h3= area.name
-			%a{href: "/area/#{ area.id }"} [edit]
 		.six.columns.area_desc
 			%p= area.description 
 		.eight.columns.area_loc
@@ -23,7 +22,6 @@
 		.fourteen.columns.post
 			%p
 				=h note.content 
-				%a{href: "/#{ note.id }"} [edit]		
 			%p.date
 				Posted 
 				- days_ago = (@today - note.created_date).to_i

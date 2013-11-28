@@ -1,9 +1,6 @@
 require 'sinatra'
 require 'data_mapper'
 require 'haml'
-require "sinatra-authentication"
-
-use Rack::Session::Cookie, :secret => 'sasafras'
 
 DataMapper::setup(:default, "sqlite3://#{Dir.pwd}/recall.db")
 
@@ -38,6 +35,18 @@ helpers do
 	include Rack::Utils
 
 	alias_method :h, :escape_html
+
+	def protected!
+		return if authorized?
+		headers['WWW-Authenticate'] = 'basic realm="Restricted Area"'
+		halt 401, "Not authorized\n"
+	end
+
+	def authorized?
+		@auth ||=  Rack::Auth::Basic::Request.new(request.env)
+	    @auth.provided? and @auth.basic? and @auth.credentials and @auth.credentials == ['admin', 'laradise']
+	end
+
 end
 
 
@@ -56,7 +65,17 @@ post '/' do
 	redirect '/' #it would be nice to be able to direct to ##{params[:name]}
 end
 
+get '/admin' do
+	protected!	
+	@areas = Area.all(:order => :name.desc) #this should sort by name alphabetically?
+	@title = "Ski Areas"
+	@today = Date.today
+	@now = Time.now.hour
+	haml :admin
+end
+
 get '/:id' do
+	protected!	
 	@note = Note.get params[:id]
 	@title = "Edit note ##{params[:id]}"
 	haml :edit_note
@@ -72,6 +91,7 @@ put '/:id' do
 end
 
 get '/:id/delete' do
+	protected!	
 	@note = Note.get params[:id]
 	@title = "confirm deletion of note ##{params[:id]}"
 	haml :delete_note
@@ -84,12 +104,14 @@ delete '/:id' do
 end
 
 get '/area/new' do
+	protected!	
 	@area = Area.new
 	@title = "New Area"
 	haml :edit_area
 end
 
 get '/area/:id' do
+	protected!	
 	@area = Area.get params[:id]
 	@title = "Edit Area \'#{@area.name}\'"
 	haml :edit_area
@@ -113,19 +135,15 @@ put '/area/' do
 end
 
 get '/area/:id/delete' do
+	protected!	
 	@area = Area.get params[:id]
 	@title = "confirm deletion of area ##{params[:id]}"
 	haml :delete
 end
 
 
-get '/admin_login' do
-	haml :admin_login
-end
 
-get 'admin' do
-	haml :admin
-end
+
 
 
 
