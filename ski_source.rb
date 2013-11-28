@@ -1,6 +1,9 @@
 require 'sinatra'
 require 'data_mapper'
 require 'haml'
+require "sinatra-authentication"
+
+use Rack::Session::Cookie, :secret => 'sasafras'
 
 DataMapper::setup(:default, "sqlite3://#{Dir.pwd}/recall.db")
 
@@ -26,6 +29,8 @@ class Note
 	property :created_date, Date
 	belongs_to :area
 end
+
+
  
 DataMapper.finalize.auto_upgrade!
 
@@ -112,4 +117,19 @@ get '/area/:id/delete' do
 	@title = "confirm deletion of area ##{params[:id]}"
 	haml :delete
 end
+
+
+get '/admin_login' do
+	haml :admin_login
+end
+
+get 'admin' do
+	haml :admin
+end
+
+
+
+
+
+
 
