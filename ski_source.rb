@@ -4,7 +4,7 @@ require 'haml'
 require 'pg'
 
 DataMapper.setup(:default, ENV['DATABASE_URL'] || "postgres://user:password@localhost/ski_db")
-#DataMapper::setup(:default, "sqlite3://#{Dir.pwd}/recall.db")
+
 
 # each area has a name, a location (a link?), a description?, 
 # and contains various notes that people have posted
@@ -46,7 +46,7 @@ helpers do
 
 	def authorized?
 		@auth ||=  Rack::Auth::Basic::Request.new(request.env)
-	    @auth.provided? and @auth.basic? and @auth.credentials and @auth.credentials == ['admin', 'laradise']
+	    @auth.provided? and @auth.basic? and @auth.credentials and @auth.credentials == ['admin', 'Snow!']
 	end
 
 end
