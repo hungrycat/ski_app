@@ -1,8 +1,10 @@
 require 'sinatra'
 require 'data_mapper'
 require 'haml'
+require 'pg'
 
-DataMapper::setup(:default, "sqlite3://#{Dir.pwd}/recall.db")
+DataMapper.setup(:default, ENV['DATABASE_URL'] || "postgres://user:password@localhost/ski_db")
+#DataMapper::setup(:default, "sqlite3://#{Dir.pwd}/recall.db")
 
 # each area has a name, a location (a link?), a description?, 
 # and contains various notes that people have posted
