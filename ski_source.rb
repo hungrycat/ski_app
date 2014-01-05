@@ -102,7 +102,7 @@ end
 delete '/:id' do
 	n = Note.get params[:id]
 	n.destroy
-	redirect '/'
+	redirect '/admin'
 end
 
 get '/area/new' do
@@ -122,7 +122,7 @@ end
 put '/area/:id' do
 	a = Area.get params[:id]
 	if a.update(name: params[:name], location: params[:location], description: params[:description])
-		redirect '/'
+		redirect '/admin'
 	else
 		haml :edit_area
 	end
@@ -130,7 +130,7 @@ end
 
 put '/area/' do
 	if Area.create(name: params[:name], location: params[:location], description: params[:description])
-		redirect '/'
+		redirect '/admin'
 	else
 		haml :edit_area
 	end

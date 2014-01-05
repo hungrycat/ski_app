@@ -6,3 +6,7 @@ gem 'data_mapper'
 gem 'haml'
 gem 'pg'
 gem 'dm-postgres-adapter'
+
+group :development do
+	gem 'shotgun' 
+end
