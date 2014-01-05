@@ -69,8 +69,8 @@ end
 
 get '/admin' do
 	protected!	
-	@areas = Area.all(:order => :id).reverse  #this should sort by name alphabetically?
-	@title = "Ski Areas"
+	@areas = Area.all(:order => :id).reverse  
+	@title = "Ski Areas - Admin"
 	@today = Date.today
 	@now = Time.now.hour
 	haml :admin
@@ -95,7 +95,7 @@ end
 get '/:id/delete' do
 	protected!	
 	@note = Note.get params[:id]
-	@title = "confirm deletion of note ##{params[:id]}"
+	@title = "Confirm deletion of note ##{params[:id]}"
 	haml :delete_note
 end
 
@@ -139,7 +139,7 @@ end
 get '/area/:id/delete' do
 	protected!	
 	@area = Area.get params[:id]
-	@title = "confirm deletion of area ##{params[:id]}"
+	@title = "Confirm deletion of area ##{params[:id]}"
 	haml :delete_area
 end
 
