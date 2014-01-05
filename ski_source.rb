@@ -140,7 +140,13 @@ get '/area/:id/delete' do
 	protected!	
 	@area = Area.get params[:id]
 	@title = "confirm deletion of area ##{params[:id]}"
-	haml :delete
+	haml :delete_area
+end
+
+delete '/area/:id' do
+	a = Area.get params[:id]
+	a.destroy
+	redirect '/admin'
 end
 
 
