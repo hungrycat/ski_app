@@ -338,17 +338,17 @@
 
 	.area_name {
 		background: #fafafa;
-		padding: 10px;  
+		padding: 10px 10px 2px;  
 		text-align: center;
+		margin-bottom: 0px;
 	}
 
 	.area_desc {
-		
-		padding: 20px;  
+		font-size: 15px; line-height: 22px; 
+		padding: 20px 10px;  
 	}
 
 	.area_loc {
-		
 		padding: 20px;  
 	}
 
