@@ -53,7 +53,7 @@ end
 
 
 get '/' do 
-	@areas = Area.all(:order => :name.desc) #this should sort by name alphabetically?
+	@areas = Area.all(:order => :id).reverse #this should sort by name alphabetically?
 	@title = "Ski Areas"
 	@today = Date.today
 	@now = Time.now.hour
@@ -69,7 +69,7 @@ end
 
 get '/admin' do
 	protected!	
-	@areas = Area.all(:order => :name.desc) #this should sort by name alphabetically?
+	@areas = Area.all(:order => :id).reverse  #this should sort by name alphabetically?
 	@title = "Ski Areas"
 	@today = Date.today
 	@now = Time.now.hour
