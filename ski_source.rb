@@ -51,6 +51,7 @@ helpers do
 
 end
 
+#public pages
 
 get '/' do 
 	@areas = Area.all(:order => :id).reverse #this should sort by name alphabetically?
@@ -66,6 +67,14 @@ post '/' do
 	note = area.notes.create(content: params[:content], created_time: Time.now, created_date: Date.today)
 	redirect '/' #it would be nice to be able to direct to ##{params[:name]}
 end
+
+set :public_folder, 'public'
+get '/map' do
+	redirect "/map.html"
+end
+
+
+#admin pages
 
 get '/admin' do
 	protected!	
