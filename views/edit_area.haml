@@ -5,6 +5,10 @@
 		%input.text{name: "name", value: "#{h @area.name}"}
 		%p Location: 
 		%input.text{name: "location",  value: "#{ @area.location}"}
+		%p Latitude: (probably 41.xxxxxxxx)
+		%input.text{name: "lat",  value: "#{ @area.lat}"}
+		%p Longitude: (probably -105.xxxxxxxx)
+		%input.text{name: "lng",  value: "#{ @area.lng}"}
 		%p Description:
 		%textarea{name: "description", class: "post-box", height: "60px"}= @area.description
 		%input(type="submit")

@@ -14,8 +14,8 @@ class Area
 	property :name, Text, :required => true
 	property :location, Text
 	property :description, Text
-
-
+	property :lat, Text
+	property :lng, Text
 	has n, :notes
 end
 
@@ -65,11 +65,13 @@ end
 post '/' do
 	area = Area.get(params[:area])
 	note = area.notes.create(content: params[:content], created_time: Time.now, created_date: Date.today)
-	redirect '/' #it would be nice to be able to direct to ##{params[:name]}
+	redirect '/' #it would be nice to be able to direct to the area the notes was posted to
 end
 
 
 get '/map' do
+	@areas = Area.all
+	@areas = @areas.delete_if{|a| a.lat.nil? || a.lng.nil?}
 	@title = "Area map"
 	haml :map, :layout => false
 end
@@ -131,7 +133,7 @@ end
 
 put '/area/:id' do
 	a = Area.get params[:id]
-	if a.update(name: params[:name], location: params[:location], description: params[:description])
+	if a.update(name: params[:name], location: params[:location], description: params[:description], lat: params[:lat], lng: params[:lng])
 		redirect '/admin'
 	else
 		haml :edit_area
@@ -139,7 +141,7 @@ put '/area/:id' do
 end
 
 put '/area/' do
-	if Area.create(name: params[:name], location: params[:location], description: params[:description])
+	if Area.create(name: params[:name], location: params[:location], description: params[:description], lat: params[:lat], lng: params[:lng])
 		redirect '/admin'
 	else
 		haml :edit_area
