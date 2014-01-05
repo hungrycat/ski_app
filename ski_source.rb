@@ -68,9 +68,10 @@ post '/' do
 	redirect '/' #it would be nice to be able to direct to ##{params[:name]}
 end
 
-set :public_folder, 'public'
+
 get '/map' do
-	redirect "/map.html"
+	@title = "Area map"
+	haml :map, :layout => false
 end
 
 
