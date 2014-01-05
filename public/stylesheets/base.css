@@ -274,14 +274,14 @@
 	    padding-top: 20px;  
 	}  
 
-	.mast_desc {
-		
-		padding: 20px;  
+	.mast-desc {
+		text-align: left;
+		margin-bottom: 2em;
 	}
 
-	.mast_pic {
+	.mast-pic {
 		
-		padding: 20px;  
+		padding: 20px 0px 40px;  
 	}
 
 	.post {  
