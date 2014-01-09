@@ -8,7 +8,10 @@
 	%h3 Recent posts:
 	- @recent_notes.each do |note| 
 		.post
-			%p.post-content=h note.content 
+			%p.post-content
+				=h note.content 
+				%a{href: "/admin/#{note.id}"} [edit]
+				%a{href: "/admin/#{note.id}/delete"} [delete]
 			%p.post-date
 				Posted 
 				- days_ago = (@today - note.created_date).to_i
@@ -25,8 +28,7 @@
 				in 
 				- note_area = Area.get(note.area_id)
 				%a{href: "/admin/area/#{ note_area.id }"}= note_area.name
-				%a{href: "/admin/#{note.id}"} [edit]
-				%a{href: "/admin/#{note.id}/delete"} [delete]
+
 
 %hr
 .sixteen.columns
@@ -37,5 +39,6 @@
 		- @areas.each do |area| 
 			%li
 				%a{href: "/admin/area/#{ area.id }"}= area.name
+				%a{href: "/admin/area/#{ area.id }/edit"} [edit]
 	.ten.columns.omega.fluid-wrapper
 		%iframe{src: "https://mapsengine.google.com/map/u/0/embed?mid=zJYYv8J60wXY.kMLteRlfM__Y",  width: "640", height: "480"}

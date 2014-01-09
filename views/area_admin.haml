@@ -38,5 +38,5 @@
 			- else
 				= (Time.now.min - note.created_time.min).to_i
 				minutes ago
-			%a{href: "/admin/#{note.id}"} [edit]
-			%a{href: "/admin/#{note.id}/delete"} [delete]
+			%a{href: "/admin/#{note.id}"} [edit post]
+			%a{href: "/admin/#{note.id}/delete"} [delete post]
