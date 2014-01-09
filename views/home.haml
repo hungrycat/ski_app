@@ -1,28 +1,15 @@
-- @areas.each do |area| 
-	.sixteen.columns
-		.fourteen.columns.area_name
-			%h3= area.name
-		.six.columns.area_desc
-			%p= area.description 
-		.eight.columns.area_loc
-			= area.location 
+.container.sixteen.columns
+	%img{class: "scale-with-grid mast-pic", src: "/masthead_photo.jpg"}
 
-
-	.sixteen.columns
-		%form{action: "/", method: "post"}
-			.one.columns.alpha
-				%p
-			.twelve.columns
-				%input{type: "hidden", name: "area", value: "#{area.id}"}
-				%textarea{name: "content", placeholder: "How's the Skiing?", class: "post-box"}
-			.two.columns
-				%input{type: "submit", value: "Submit", class: "post-button"}
-
-	- area.notes.all(:limit => 4, :order => [:created_time.desc]).each do |note| 
-		.fourteen.columns.post
-			%p
-				=h note.content 
-			%p.date
+.container.eight.columns
+	%h5.mast-desc Wondering about the back-country ski conditions in the Medicine Bow National Forest? You’ve come to the right place. Before you head out to the Snowies, Chimney Park, or the un-groomed trails at Happy Jack, check to see what other skiers have said about the snow. 
+	%h5.mast-desc When you get back, spread the love: Tell us which trail(s) you skied, and whether the powder was good.
+.container.eight.columns
+	%h3 Recent posts:
+	- @recent_notes.each do |note| 
+		.post
+			%p.post-content=h note.content 
+			%p.post-date
 				Posted 
 				- days_ago = (@today - note.created_date).to_i
 				- if days_ago >= 1
@@ -35,5 +22,17 @@
 				- else
 					= (Time.now.min - note.created_time.min).to_i
 					minutes ago
-	.sixteen.columns
-		%p.sepa 
+				in 
+				- note_area = Area.get(note.area_id)
+				%a{href: "/area/#{ note_area.id }"}= note_area.name
+
+%hr
+.sixteen.columns
+	.six.columns.alpha
+		%h3 Ski Areas:
+		%ul.area-list
+		- @areas.each do |area| 
+			%li
+				%a{href: "/area/#{ area.id }"}= area.name
+	.ten.columns.omega.fluid-wrapper
+		%iframe{src: "https://mapsengine.google.com/map/u/0/embed?mid=zJYYv8J60wXY.kMLteRlfM__Y",  width: "640", height: "480"}

@@ -52,7 +52,7 @@
 ================================================== */
 	body {
 		background: #fff;
-		font: 14px/21px "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+		font: 16px/21px "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
 		color: #444;
 		-webkit-font-smoothing: antialiased; /* Fix for webkit rendering */
 		-webkit-text-size-adjust: 100%;
@@ -272,7 +272,12 @@
 
 	.masthead {  
 	    padding-top: 20px;  
+	    text-decoration:none;
 	}  
+
+	.masthead:hover {  
+	    text-decoration:underline;
+	} 
 
 	.mast-desc {
 		text-align: left;
@@ -291,7 +296,7 @@
 	}  
 
 	.post:first-of-type {  
-	    margin-top: 30px;
+	    margin-top: 10px;
 	}  
 
 	.post:last-of-type {  
@@ -319,6 +324,15 @@
 	    width: 100px;    */
 	}  
 
+	.post-content {
+
+	}
+
+	.post-date {
+		margin-bottom: 0px;
+	}
+
+
 	.header {
 		text-align: center;
 	}
@@ -336,18 +350,19 @@
 	    background: white;  
 	}
 
-	.area_name {
+	.area-name {
 		background: #fafafa;
-		padding: 10px 10px 2px;  
+		padding: 10px;  
 		text-align: center;
+
 	}
 
-	.area_desc {
+	.area-desc {
 		font-size: 15px; line-height: 22px; 
 		padding: 20px 10px;  
 	}
 
-	.area_loc {
+	.area-loc {
 		padding: 20px;  
 	}
 
@@ -362,7 +377,7 @@
 	    left: 0;
 	    width: 100%;
 	    height: 100%;
-	        border: none;
+	    border: none;
 	}
 
 

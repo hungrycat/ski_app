@@ -10,20 +10,10 @@
 %body
   %header
     .container.sixteen.columns.header
-      %h1.masthead Medicine Bow Ski Forum
+      %h1.masthead
+        %a.masthead{href: "/"} Medicine Bow Ski Forum
       %h4 Backcounty ski conditions for the Medicine Bow National Forest
-      .container.sixteen.columns
-        %img{class: "scale-with-grid mast-pic", src: "/masthead_photo.jpg"}
-      .container.ten.columns
-        %h5.mast-desc Wondering about the back-country ski conditions in the Medicine Bow National Forest? You’ve come to the right place. Before you head out to the Snowies, Chimney Park, or the un-groomed trails at Happy Jack, check to see what other skiers have said about the snow. 
-        %h5.mast-desc When you get back, spread the love: Tell us which trail(s) you skied, and whether the powder was good.
-
-      .container.six.columns
-        %h5{style: "text-align: left"}
-          %a{href: "/map"} Trailhead Map
-    %hr
-
-  .container
+  .container.sixteen.columns
     = yield
     %footer
       .one.columns.space &nbsp

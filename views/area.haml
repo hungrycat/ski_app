@@ -1,0 +1,38 @@
+.sixteen.columns
+	%h3
+		.area-name= @area.name
+	-if @area.short_name
+		%img{class: "scale-with-grid mast-pic", src: "/#{@area.short_name}.jpg"}
+	.six.columns.area_desc
+		%p= @area.description 
+	.eight.columns.area_loc
+		= @area.location 
+
+
+.sixteen.columns
+	%form{action: "/", method: "post"}
+		.one.columns.alpha
+			%p
+		.twelve.columns
+			%input{type: "hidden", name: "area", value: "#{@area.id}"}
+			%textarea{name: "content", placeholder: "How's the Skiing?", class: "post-box"}
+		.two.columns
+			%input{type: "submit", value: "Submit", class: "post-button"}
+
+- @area.notes.all(:limit => 4, :order => [:created_time.desc]).each do |note| 
+	.fourteen.columns.post
+		%p
+			=h note.content 
+		%p.date
+			Posted 
+			- days_ago = (@today - note.created_date).to_i
+			- if days_ago >= 1
+				= days_ago
+				days ago 
+			- elsif (@now - note.created_time.hour).to_i >= 1 
+				- hours_ago = (@now - note.created_time.hour).to_i
+				= hours_ago
+				hours ago
+			- else
+				= (Time.now.min - note.created_time.min).to_i
+				minutes ago

@@ -1,18 +1,25 @@
 - if @area
-	%form{ action: "/area/#{ @area.id }", method: "post", id: "add"}
+	%form{ action: "/admin/area/#{ @area.id }", method: "post", id: "add"}
 		%input{type: "hidden", name: "_method", value: "put"}
 		%p Area name: 
 		%input.text{name: "name", value: "#{h @area.name}"}
+		%p
+		%p Short area name: (used in image, cannot contain spaces)
+		%input.text{name: "short_name", value: "#{@area.short_name}"}
+		%p
 		%p Location: 
 		%input.text{name: "location",  value: "#{ @area.location}"}
+		%p
 		%p Latitude: (probably 41.xxxxxxxx)
 		%input.text{name: "lat",  value: "#{ @area.lat}"}
+		%p
 		%p Longitude: (probably -105.xxxxxxxx)
 		%input.text{name: "lng",  value: "#{ @area.lng}"}
+		%p
 		%p Description:
 		%textarea{name: "description", class: "post-box", height: "60px"}= @area.description
 		%input(type="submit")
 		- if @area.id
-			%a.button{href: "/area/#{ @area.id }/delete"} Delete
+			%a.button{href: "/admin/area/#{ @area.id }/delete"} Delete
 - else 
 	%p Area not found.

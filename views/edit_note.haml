@@ -4,6 +4,6 @@
 		%textarea{name: "content"}= h @note.content 
 
 		%input(type="submit")
-		%a.button{href: "/#{ @note.id }/delete"} Delete
+		%a.button{href: "/admin/#{ @note.id }/delete"} Delete
 - else 
 	%p Note not found.
