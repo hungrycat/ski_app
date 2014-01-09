@@ -71,11 +71,11 @@ post '/' do
 end
 
 
-get '/map' do
+get '/map_test' do
 	@areas = Area.all
 	@areas = @areas.delete_if{|a| a.lat.nil? || a.lng.nil?}
 	@title = "Area map"
-	haml :map, :layout => false
+	haml :map_test
 end
 
 get '/area/:id' do

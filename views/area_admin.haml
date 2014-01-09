@@ -5,12 +5,25 @@
 			%a{href: "/admin/area/#{ @area.id }/edit"} [edit area]
 	-if @area.short_name
 		%img{class: "scale-with-grid mast-pic", src: "/#{@area.short_name}.jpg"}
-	.six.columns.area_desc
+	.six.columns.area-desc
 		%p= @area.description 
-	.eight.columns.area_loc
-		= @area.location 
-
-
+	.eight.columns.area-map
+		%script{src: "http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.js"}
+		#map{style: "width: 600px; height: 400px"}
+		%script{:type => "text/javascript"}
+			//<![CDATA[
+			var map = L.map('map')
+			ocmTile = "http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png";
+			ocmCopyright = "&copy; OpenCycleMap, Map data &copy; OpenStreetMap contributors";
+			ocmLayer = new L.TileLayer(ocmTile, { maxZoom: 18, attribution: ocmCopyright } );
+			map.addLayer(ocmLayer);
+			map.setView( new L.LatLng(#{@area.lat}, #{@area.lng}), 13 );
+			L.marker([#{@area.lat}, #{@area.lng}]).addTo(map).bindPopup("#{@area.name}");
+			function onMapClick(e) {
+			alert("You clicked the map at " + e.latlng);
+			}
+			map.on('click', onMapClick);
+			//]]>	 
 .sixteen.columns
 	%form{action: "/", method: "post"}
 		.one.columns.alpha
