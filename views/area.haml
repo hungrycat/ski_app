@@ -11,8 +11,8 @@
 		%script{:type => "text/javascript"}
 			//<![CDATA[
 			var map = L.map('map')
-			ocmTile = "http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png";
-			ocmCopyright = "&copy; OpenCycleMap, Map data &copy; OpenStreetMap contributors";
+			ocmTile = "http://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png";
+			ocmCopyright = "&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap</a> Contributors & <a href=\"http://thunderforest.com/\">Thunderforest</a>";
 			ocmLayer = new L.TileLayer(ocmTile, { maxZoom: 18, attribution: ocmCopyright } );
 			map.addLayer(ocmLayer);
 			map.setView( new L.LatLng(#{@area.map_center}), #{ @area.map_zoom } );
