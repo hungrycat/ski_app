@@ -7,14 +7,14 @@
 		%p Short area name: (used in image, cannot contain spaces)
 		%input.text{name: "short_name", value: "#{@area.short_name}"}
 		%p
-		%p Location: 
-		%input.text{name: "location",  value: "#{ @area.location}"}
+		%p Map center: (lat/lng)
+		%input.text{name: "map_center",  value: "#{ @area.map_center}"}
 		%p
-		%p Latitude: (probably 41.xxxxxxxx)
-		%input.text{name: "lat",  value: "#{ @area.lat}"}
+		%p Trailheads: ([] or commas?)
+		%input.text{name: "trailheads",  value: "#{ @area.trailheads}"}
 		%p
-		%p Longitude: (probably -105.xxxxxxxx)
-		%input.text{name: "lng",  value: "#{ @area.lng}"}
+		%p Map zoom level: (default 13)
+		%input.text{name: "map_zoom",  value: "#{ @area.map_zoom }"}
 		%p
 		%p Description:
 		%textarea{name: "description", class: "post-box", height: "60px"}= @area.description

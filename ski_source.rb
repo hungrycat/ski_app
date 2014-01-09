@@ -13,10 +13,10 @@ class Area
 	property :id, Serial
 	property :name, Text, :required => true
 	property :short_name, Text
-	property :location, Text
 	property :description, Text
-	property :lat, Text
-	property :lng, Text
+	property :map_center, Text
+	property :trailheads, Text
+	property :map_zoom, Text
 	has n, :notes
 end
 
@@ -55,7 +55,7 @@ end
 #public pages
 
 get '/' do 
-	@areas = Area.all(:order => :id).reverse #this should sort by name alphabetically?
+	@areas = Area.all(:order => :id).reverse
 	@title = "Ski Areas"
 	@recent_notes = Note.all(:limit => 4, :order => [:created_time.desc])
 	@today = Date.today
@@ -160,7 +160,12 @@ end
 
 put '/admin/area/:id' do
 	a = Area.get params[:id]
-	if a.update(name: params[:name], short_name: params[:short_name], location: params[:location], description: params[:description], lat: params[:lat], lng: params[:lng])
+	if a.update(name: params[:name], 
+				short_name: params[:short_name], 
+				map_center: params[:map_center], 
+				trailheads: params[:trailheads],
+				description: params[:description],
+				map_zoom: params[:map_zoom])
 		redirect '/admin' #should redirect back to the area page
 	else
 		haml :edit_area
@@ -168,7 +173,12 @@ put '/admin/area/:id' do
 end
 
 put '/admin/area/' do
-	if Area.create(name: params[:name], location: params[:location], description: params[:description], lat: params[:lat], lng: params[:lng])
+	if Area.create(name: params[:name], 
+				short_name: params[:short_name], 
+				map_center: params[:map_center], 
+				trailheads: params[:trailheads],
+				description: params[:description],
+				map_zoom: params[:map_zoom])
 		redirect '/admin'
 	else
 		haml :edit_area

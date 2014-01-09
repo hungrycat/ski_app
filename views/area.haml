@@ -15,8 +15,10 @@
 			ocmCopyright = "&copy; OpenCycleMap, Map data &copy; OpenStreetMap contributors";
 			ocmLayer = new L.TileLayer(ocmTile, { maxZoom: 18, attribution: ocmCopyright } );
 			map.addLayer(ocmLayer);
-			map.setView( new L.LatLng(#{@area.lat}, #{@area.lng}), 13 );
-			L.marker([#{@area.lat}, #{@area.lng}]).addTo(map).bindPopup("#{@area.name}");
+			map.setView( new L.LatLng(#{@area.map_center}), #{ @area.map_zoom } );
+			-unless @area.trailheads.nil? || @area.trailheads == 0
+				- @area.trailheads.split(',').to_a.each_slice(3).each do |t_lat, t_lng, t_name| 
+					L.marker([#{t_lat}, #{t_lng}]).bindPopup("#{t_name}").addTo(map);
 			//]]>	 
 
 
