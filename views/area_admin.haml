@@ -1,6 +1,8 @@
 .sixteen.columns
 	%h3
-		.area-name= @area.name
+		.area-name
+			= @area.name
+			%a{href: "/admin/area/#{ @area.id }/edit"} [edit area]
 	-if @area.short_name
 		%img{class: "scale-with-grid mast-pic", src: "/#{@area.short_name}.jpg"}
 	.six.columns.area_desc
@@ -36,3 +38,5 @@
 			- else
 				= (Time.now.min - note.created_time.min).to_i
 				minutes ago
+			%a{href: "/admin/#{note.id}"} [edit]
+			%a{href: "/admin/#{note.id}/delete"} [delete]

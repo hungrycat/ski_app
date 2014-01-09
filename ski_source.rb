@@ -65,9 +65,9 @@ end
 
 #need data validation
 post '/' do
-	area = Area.get(params[:area])
+	area = Area.get(params[:area_id])
 	note = area.notes.create(content: params[:content], created_time: Time.now, created_date: Date.today)
-	redirect '/' #it would be nice to be able to direct to the area the notes was posted to
+	redirect back
 end
 
 
@@ -92,6 +92,7 @@ end
 get '/admin' do
 	protected!	
 	@areas = Area.all(:order => :id).reverse  
+	@recent_notes = Note.all(:limit => 4, :order => [:created_time.desc])
 	@title = "Ski Areas - Admin"
 	@today = Date.today
 	@now = Time.now.hour
@@ -127,7 +128,7 @@ end
 delete '/admin/:id' do
 	n = Note.get params[:id]
 	n.destroy
-	redirect '/admin'
+	redirect '/admin' #should redirect back to the area page
 end
 
 
@@ -144,6 +145,15 @@ end
 get '/admin/area/:id' do
 	protected!	
 	@area = Area.get params[:id]
+	@title = "\'#{@area.name}\' - Admin"
+	@today = Date.today
+	@now = Time.now.hour
+	haml :area_admin
+end
+
+get '/admin/area/:id/edit' do
+	protected!	
+	@area = Area.get params[:id]
 	@title = "Edit Area \'#{@area.name}\'"
 	haml :edit_area
 end
@@ -151,7 +161,7 @@ end
 put '/admin/area/:id' do
 	a = Area.get params[:id]
 	if a.update(name: params[:name], short_name: params[:short_name], location: params[:location], description: params[:description], lat: params[:lat], lng: params[:lng])
-		redirect '/admin'
+		redirect '/admin' #should redirect back to the area page
 	else
 		haml :edit_area
 	end
