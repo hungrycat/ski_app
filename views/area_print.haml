@@ -1,0 +1,28 @@
+!!!
+%html
+%head
+	%title #{@title} | Medicine Bow Ski Forum
+	%link{ href: "/stylesheets/base.css", rel: "stylesheet" }
+	%link{ href: "/stylesheets/skeleton.css", rel: "stylesheet" }
+	%link{ href: "/stylesheets/layout.css", rel: "stylesheet" }
+	%link{rel: "stylesheet", href: "http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.css"}
+%body
+	.sixteen.columns.area-map
+		- zoom_level = @area.map_zoom.to_i + 1
+		%script{src: "/#{@area.short_name}.js", type: "text/javascript"}
+		%script{src: "http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.js"}
+		#map{style: "width: 800px; height: 1000px"}
+		%script{:type => "text/javascript"}
+			//<![CDATA[
+			var map = L.map('map')
+			ocmTile = "http://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png";
+			ocmCopyright = "&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap</a> Contributors & <a href=\"http://thunderforest.com/\">Thunderforest</a>";
+			ocmLayer = new L.TileLayer(ocmTile, { maxZoom: 18, attribution: ocmCopyright } );
+			map.addLayer(ocmLayer);
+			map.setView( new L.LatLng(#{@area.map_center}), #{ zoom_level } );
+			-unless @area.trailheads.nil? || @area.trailheads == 0
+				- @area.trailheads.split(',').to_a.each_slice(3).each do |t_lat, t_lng, t_name| 
+					L.marker([#{t_lat}, #{t_lng}]).bindPopup("#{t_name}").addTo(map);
+			-if @area.short_name
+				L.geoJson(#{@area.short_name}, {}).addTo(map);
+			//]]>

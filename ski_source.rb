@@ -86,6 +86,12 @@ get '/area/:id' do
 	haml :area
 end
 
+get '/area/:id/print' do
+	@area = Area.get(params[:id])
+	@title =  @area.name + ' Area Map'
+	haml :area_print, :layout => false
+end
+
 #======================
 #admin pages
 
