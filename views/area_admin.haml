@@ -25,7 +25,7 @@
 			alert("You clicked the map at " + e.latlng);
 			}
 			map.on('click', onMapClick);
-			-if @area.short_name
+			-if @area.short_name != ''
 				L.geoJson(#{@area.short_name}, {}).addTo(map);
 			//]]>	 
 .sixteen.columns

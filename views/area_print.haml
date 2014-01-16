@@ -23,6 +23,6 @@
 			-unless @area.trailheads.nil? || @area.trailheads == 0
 				- @area.trailheads.split(',').to_a.each_slice(3).each do |t_lat, t_lng, t_name| 
 					L.marker([#{t_lat}, #{t_lng}]).bindPopup("#{t_name}").addTo(map);
-			-if @area.short_name
+			-if @area.short_name != ''
 				L.geoJson(#{@area.short_name}, {}).addTo(map);
 			//]]>
