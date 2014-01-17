@@ -23,7 +23,7 @@
 			-if @area.short_name != ''
 				L.geoJson(#{@area.short_name}, {}).addTo(map);
 			//]]>
-		%a{href: "/area/#{ @area.id }/print"} Printable Map
+		%a{href: "/area/#{ @area.id }/print", style: "text-align: center"} Printable Map
 
 
 .sixteen.columns

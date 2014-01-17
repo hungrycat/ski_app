@@ -6,8 +6,6 @@
     %link{ href: "/stylesheets/skeleton.css", rel: "stylesheet" }
     %link{ href: "/stylesheets/layout.css", rel: "stylesheet" }
     %link{rel: "stylesheet", href: "http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.css"}
-
-
 %body
   %header
     .container.sixteen.columns.header
@@ -17,5 +15,10 @@
   .container.sixteen.columns
     = yield
     %footer
-      .one.columns.space &nbsp
       %hr
+      .one.columns.space &nbsp
+      .fifteen.columns
+        %p{style: "margin-after: 10px"} Did we miss something? Do you have any photos, GPS tracks or other information to share? 
+        %p 
+          Contact us at 
+          %a{href: "mailto:info@wyoski.com"} info@wyoski.com

@@ -44,6 +44,6 @@
 		map.addLayer(ocmLayer);
 		map.setView( new L.LatLng(41.2298, -105.85756), 10 );
 		- @areas.each do |area|
-			- if area.trailheads
+			- if area.map_center
 				L.marker([#{area.map_center}]).bindPopup("<a href=\'/area/#{area.id}\'>#{area.name}</a>").addTo(map);
 		//]]>	
