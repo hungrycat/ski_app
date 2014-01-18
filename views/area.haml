@@ -1,7 +1,7 @@
 .sixteen.columns
 	%h3
 		.area-name= @area.name
-	-if @area.short_name
+	-if @area.short_name && File.exist?('/#{@area.short_name}.jpg')
 		%img{class: "scale-with-grid mast-pic", src: "/#{@area.short_name}.jpg", style: "width: 100%;"}
 .six.columns.alpha.area-desc
 	%p= @area.description 
