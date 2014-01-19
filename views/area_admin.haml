@@ -5,29 +5,30 @@
 			%a{href: "/admin/area/#{ @area.id }/edit"} [edit area]
 	-if @area.short_name
 		%img{class: "scale-with-grid mast-pic", src: "/#{@area.short_name}.jpg"}
-	.six.columns.area-desc
-		%p= @area.description 
-	.eight.columns.area-map
-		%script{src: "http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.js"}
-		#map{style: "width: 600px; height: 400px"}
-		%script{:type => "text/javascript"}
-			//<![CDATA[
-			var map = L.map('map')
-			ocmTile = "http://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png";
-			ocmCopyright = "&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap</a> Contributors & <a href=\"http://thunderforest.com/\">Thunderforest</a>";
-			ocmLayer = new L.TileLayer(ocmTile, { maxZoom: 18, attribution: ocmCopyright } );
-			map.addLayer(ocmLayer);
-			map.setView( new L.LatLng(#{@area.map_center}), #{ @area.map_zoom ? @area.map_zoom : 13} );
-			-unless @area.trailheads.nil? || @area.trailheads == 0
-				- @area.trailheads.split(',').to_a.each_slice(3).each do |t_lat, t_lng, t_name| 
-					L.marker([#{t_lat}, #{t_lng}]).bindPopup("#{t_name}").addTo(map);
-			function onMapClick(e) {
-			alert("You clicked the map at " + e.latlng);
-			}
-			map.on('click', onMapClick);
-			-if @area.short_name != ''
-				L.geoJson(#{@area.short_name}, {}).addTo(map);
-			//]]>	 
+.six.columns.alpha.area-desc
+	%p= @area.description 
+.ten.columns.omega.area-map
+	%script{src: "/#{@area.short_name}.js", type: "text/javascript"}
+	%script{src: "http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.js"}
+	#map{style: "width: 100%; height: 400px"}
+	%script{:type => "text/javascript"}
+		//<![CDATA[
+		var map = L.map('map')
+		ocmTile = "http://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png";
+		ocmCopyright = "&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap</a> Contributors & <a href=\"http://thunderforest.com/\">Thunderforest</a>";
+		ocmLayer = new L.TileLayer(ocmTile, { maxZoom: 18, attribution: ocmCopyright } );
+		map.addLayer(ocmLayer);
+		map.setView( new L.LatLng(#{@area.map_center}), #{ @area.map_zoom ? @area.map_zoom : 13} );
+		-unless @area.trailheads.nil? || @area.trailheads == 0
+			- @area.trailheads.split(',').to_a.each_slice(3).each do |t_lat, t_lng, t_name| 
+				L.marker([#{t_lat}, #{t_lng}]).bindPopup("#{t_name}").addTo(map);
+		function onMapClick(e) {
+		alert("You clicked the map at " + e.latlng);
+		}
+		map.on('click', onMapClick);
+		-if @area.short_name != ''
+			L.geoJson(#{@area.short_name}, {}).addTo(map);
+		//]]>	 
 .sixteen.columns
 	%form{action: "/", method: "post"}
 		.one.columns.alpha

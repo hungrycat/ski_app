@@ -4,13 +4,13 @@
 		%p Area name: 
 		%input.text{name: "name", value: "#{h @area.name}"}
 		%p
-		%p Short area name: (used in image, cannot contain spaces)
+		%p Short area name: (used in image and trails paths, cannot contain spaces)
 		%input.text{name: "short_name", value: "#{@area.short_name}"}
 		%p
 		%p Map center: (lat/lng)
 		%input.text{name: "map_center",  value: "#{ @area.map_center}"}
 		%p
-		%p Trailheads: ([] or commas?)
+		%p Trailheads: (lat, lng, description, lat, lng, description, etc)
 		%input.text{name: "trailheads",  value: "#{ @area.trailheads}"}
 		%p
 		%p Map zoom level: (default 13)
