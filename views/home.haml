@@ -53,3 +53,15 @@
 			- if area.map_center
 				L.marker([#{area.map_center}]).bindPopup("<a href=\'/area/#{area.id}\'>#{area.name}</a>").addTo(map);
 		//]]>	
+%hr
+.ten.columns
+	%h3 Useful Links:
+	%ul.area-list
+	%li
+		%a{ href: "http://www.wrds.uwyo.edu/wrds/nrcs/snowprec/snowprec.html"} NRCA/WRDS current snowpack data.
+		Stations located in the snowies are listed under the Laramie river basin.
+	%li
+		%a{ href: "http://www.crh.noaa.gov/riw/?n=drought_6"} NOAA's statewide snowpack compared to normal
+	%li 
+		%a{ href: "mbna.pbworks.com/"} Medicine Bow Nordic Association
+	%br
