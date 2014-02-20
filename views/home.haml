@@ -23,16 +23,20 @@
 				- elsif days_ago > 1
 					= days_ago
 					days ago 
-				- elsif (@now - note.created_time.hour.+(1)).to_i >= 1 
-					- hours_ago = (@now - note.created_time.hour.+(1)).to_i
+				- elsif (@now - note.created_time.hour).to_i >= 1 
+					- hours_ago = (@now - note.created_time.hour).to_i
 					= hours_ago
 					- if hours_ago <= 1
 						hour ago
 					- else 
 						hours ago
 				- else
-					= (Time.now.min - note.created_time.min).+(60).to_i
-					minutes ago
+					- min_ago = (Time.now.min - note.created_time.min).to_i
+					= min_ago
+					- if min_ago == 1
+						minute ago
+					- else
+						minutes ago
 				in 
 				- note_area = Area.get(note.area_id)
 				%a{href: "/area/#{ note_area.id }", style: "font-style: normal"}= note_area.name
