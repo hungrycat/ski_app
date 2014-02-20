@@ -16,27 +16,25 @@
 			%p.post-content=h note.content 
 			%p.post-date
 				Posted 
-				- days_ago = (@today - note.created_date).to_i
+				- days_ago = (@now - note.created_time).to_i
+				- hours_ago = (@now - note.created_time).*(24).to_i
+				- min_ago = (@now - note.created_time).*(24).*(60).to_i
 				- if days_ago == 1
 					= days_ago
 					day ago 
 				- elsif days_ago > 1
 					= days_ago
 					days ago 
-				- elsif (@hour - note.created_time.hour).to_i >= 1 
-					- hours_ago = (@hour - note.created_time.hour).to_i
+				- elsif hours_ago == 1
+					1 hour ago 
+				- elsif hours_ago > 1
 					= hours_ago
-					- if hours_ago <= 1
-						hour ago
-					- else 
-						hours ago
-				- else
-					- min_ago = (Time.now.min - note.created_time.min).to_i
+					hours ago 
+				- elsif min_ago == 1
+					1 minute ago
+				- else 
 					= min_ago
-					- if min_ago == 1
-						minute ago
-					- else
-						minutes ago
+					minutes ago
 				in 
 				- note_area = Area.get(note.area_id)
 				%a{href: "/area/#{ note_area.id }", style: "font-style: normal"}= note_area.name

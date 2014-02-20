@@ -60,8 +60,7 @@ get '/' do
 	@areas = Area.all(:order => :id).reverse
 	@title = "Ski Areas"
 	@recent_notes = Note.all(:limit => 4, :order => [:created_time.desc])
-	@today = Date.today
-	@hour = Time.now.hour
+	@now = DateTime.now
 	haml :home
 end
 
@@ -72,19 +71,10 @@ post '/' do
 	redirect back
 end
 
-
-get '/map_test' do
-	@areas = Area.all
-	@areas = @areas.delete_if{|a| a.lat.nil? || a.lng.nil?}
-	@title = "Area map"
-	haml :map_test
-end
-
 get '/area/:id' do
 	@area = Area.get(params[:id])
 	@title = @area.name
-	@today = Date.today
-	@hour = Time.now.hour
+	@now = DateTime.now
 	haml :area
 end
 
@@ -102,8 +92,7 @@ get '/admin' do
 	@areas = Area.all(:order => :id).reverse  
 	@recent_notes = Note.all(:limit => 4, :order => [:created_time.desc])
 	@title = "Ski Areas - Admin"
-	@today = Date.today
-	@hour= Time.now.hour
+	@now = DateTime.now
 	haml :admin
 end
 
@@ -154,8 +143,7 @@ get '/admin/area/:id' do
 	protected!	
 	@area = Area.get params[:id]
 	@title = "\'#{@area.name}\' - Admin"
-	@today = Date.today
-	@hour = Time.now.hour
+	@now = DateTime.now
 	haml :area_admin
 end
 
