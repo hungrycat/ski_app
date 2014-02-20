@@ -61,7 +61,7 @@ get '/' do
 	@title = "Ski Areas"
 	@recent_notes = Note.all(:limit => 4, :order => [:created_time.desc])
 	@today = Date.today
-	@now= Time.now.hour
+	@hour = Time.now.hour
 	haml :home
 end
 
@@ -84,7 +84,7 @@ get '/area/:id' do
 	@area = Area.get(params[:id])
 	@title = @area.name
 	@today = Date.today
-	@now= Time.now.hour
+	@hour = Time.now.hour
 	haml :area
 end
 
@@ -103,7 +103,7 @@ get '/admin' do
 	@recent_notes = Note.all(:limit => 4, :order => [:created_time.desc])
 	@title = "Ski Areas - Admin"
 	@today = Date.today
-	@now= Time.now.hour
+	@hour= Time.now.hour
 	haml :admin
 end
 
@@ -155,7 +155,7 @@ get '/admin/area/:id' do
 	@area = Area.get params[:id]
 	@title = "\'#{@area.name}\' - Admin"
 	@today = Date.today
-	@now= Time.now.hour
+	@hour = Time.now.hour
 	haml :area_admin
 end
 

@@ -23,8 +23,8 @@
 				- elsif days_ago > 1
 					= days_ago
 					days ago 
-				- elsif (@now - note.created_time.hour).to_i >= 1 
-					- hours_ago = (@now - note.created_time.hour).to_i
+				- elsif (@hour - note.created_time.hour).to_i >= 1 
+					- hours_ago = (@hour - note.created_time.hour).to_i
 					= hours_ago
 					- if hours_ago <= 1
 						hour ago
