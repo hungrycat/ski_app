@@ -53,12 +53,12 @@
 	%script{:type => "text/javascript"}
 		//<![CDATA[
 		var map = L.map('map')
-		ocmTile = "http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png";
-		ocmCopyright = "Map data &copy; 2012 OpenStreetMap contributors";
+		ocmTile = "http://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png";
+		ocmCopyright = "&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap</a> Contributors & <a href=\"http://thunderforest.com/\">Thunderforest</a>";
 		ocmLayer = new L.TileLayer(ocmTile, { maxZoom: 18, attribution: ocmCopyright } );
 		map.addLayer(ocmLayer);
 		map.setView( new L.LatLng(41.2298, -105.85756), 10 );
 		- @areas.each do |area|
-			- if area.trailheads
+			- if area.map_center
 				L.marker([#{area.map_center}]).bindPopup("<a href=\'/area/#{area.id}\'>#{area.name}</a>").addTo(map);
-		//]]>	
+		//]]>		
